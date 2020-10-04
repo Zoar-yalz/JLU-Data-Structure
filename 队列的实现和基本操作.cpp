@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-class Node//嵌套节点类，队列的实现使用双向链表
+class Node
 {
 public:
 	int value = NULL;
@@ -8,27 +8,27 @@ public:
 	Node* prev = NULL;
 	Node(int v);
 };
-Node::Node(int v)//默认构造器
+Node::Node(int v)
 {
 	value = v;
 	next = nullptr;
 	prev = nullptr;
 }
-class Deque//双向队列
+class Deque
 {
 public:
-	Deque();//构造与析构函数
+	Deque();
 	~Deque();
-	void inQueue(int n);//入队
-	int outQueue(void);//出队
-	bool isEmpty(void);//判别是否为空
+	void inQueue(int n);
+	void outQueue(void);
+	bool isEmpty(void);
 private:
-	Node* tail;//队尾
-	Node* head;//队首
-	int length;//长度
+	Node* tail;
+	Node* head;
+	int length;
 };
 
-Deque::Deque()//默认构造器
+Deque::Deque()
 {
 	tail = nullptr;
 	head = nullptr;
@@ -38,57 +38,53 @@ Deque::Deque()//默认构造器
 Deque::~Deque()
 {
 }
-void Deque::inQueue(int n)//入队
+void Deque::inQueue(int n)
 {
-	if (this->isEmpty())//特殊情况：空队列
+	if (this->isEmpty())
 	{
 		tail = new Node(n);
 		head = tail;
 	}
-	else if (head == tail)//特殊情况：一个元素队列
+	else if (head == tail)
 	{
 		Node* p = new Node(n);
 		p->next = tail;
 		head = p;
 		tail->prev = head;
 	}
-	else                   //一般情况，在队首添加节点
+	else
 	{
 		Node* p = new Node(n);
 		p->next = head;
 		head->prev = p;
 		head = p;
 	}
-	length++;//更新长度
+	length++;
 }
-int Deque::outQueue(void)//出队
+void Deque::outQueue(void)
 {
-	int value = NULL;
 	if (this->isEmpty())
 	{
-		std::cout << "invalid\n";//无效操作：空队列出队
-		return NULL;
+		std::cout << "invalid\n";
+		return;
 	}
-	else if (length == 1)//特殊情况：单元素队列
+	else if (length == 1)
 	{
 		std::cout << tail->value << "\n";
-		value = tail->value;
 		delete tail;
 		tail = nullptr;
 		head = nullptr;
 	}
-	else//一般情况，队尾出队
+	else
 	{
 		std::cout << tail->value << "\n";
-		value = tail->value;
 		tail = tail->prev;
 		delete tail->next;
 		tail->next = nullptr;
 	}
-	length--;//更新长度
-	return value;
+	length--;
 }
-bool Deque::isEmpty(void)//判断是否为空
+bool Deque::isEmpty(void)
 {
 	return length == 0;
 }
@@ -97,7 +93,7 @@ int main()
 	Deque* d = new Deque();
 	int n;
 	std::cin >> n;
-	for (int i = 0; i < n; i++)//输入，输出
+	for (int i = 0; i < n; i++)
 	{
 		int mode;
 		int value;

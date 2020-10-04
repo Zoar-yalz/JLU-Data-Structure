@@ -1,47 +1,47 @@
-#include <stdio.h> //单链表的实现
+#include <stdio.h>
 #define scanf_s scanf
-class Node	//单向节点类
+class Node
 {
 public:
-	int value = NULL;	
+	int value = NULL;
 	Node* next = NULL;
 	Node(int v);
 };
 class LinkedList
 {
 public:
-	LinkedList();//构造函数
-	Node* add(int value);//在尾部添加节点
-	void del(int k);	//删除下标为k的节点
-	void insert(int n, int value);//在下标为n的结点后增加值为value的结点
-	void print();//按题目格式输出
+	LinkedList();
+	Node* add(int value);
+	void del(int k);
+	void insert(int n, int value);
+	void print();
 private:
-	Node* tail;//尾节点
-	Node* head;//头节点
-	int length;//存储链表长度的域
+	Node* tail;
+	Node* head;
+	int length;
 };
-LinkedList::LinkedList()//默认构造器
+LinkedList::LinkedList()
 {
 	tail = NULL;
 	head = NULL;
 	length = 0;
 }
-Node* LinkedList::add(int value)//添加
+Node* LinkedList::add(int value)
 {
-	if (tail == nullptr)//特殊情况：空链表时
+	if (tail == nullptr)
 	{
 		head = tail = new Node(value);
 		length++;
 		return tail;
 	}
-	tail->next = new Node(value);//一般情况，直接在尾部增加结点；
+	tail->next = new Node(value);
 	tail = tail->next;
 	length++;
 	return tail;
 }
-void LinkedList::del(int k)//删除
+void LinkedList::del(int k)
 {
-	if (k > length)//过滤错误操作
+	if (k > length)
 		return;
 	Node* p = head;
 	Node* d = head;
@@ -49,14 +49,14 @@ void LinkedList::del(int k)//删除
 	{
 		return;
 	}
-	else if (k == 1)//特殊情况：删除头节点
+	else if (k == 1)
 	{
 		head = head->next;
 		delete p;
 	}
 	else
 	{
-		for (int i = 0; i < k - 2; i++)//一般情况：遍历寻找目标节点，定位到前一个结点并删除
+		for (int i = 0; i < k - 2; i++)
 		{
 			p = p->next;
 		}
@@ -64,14 +64,14 @@ void LinkedList::del(int k)//删除
 		p->next = d->next;
 		delete d;
 	}
-	length--;//更新长度
+	length--;
 }
 void LinkedList::insert(int n, int value)
 {
-	if (n > length)//过滤错误操作
+	if (n > length)
 		return;
 	Node* p = head;
-	if (n == 0)//特殊情况：空链表
+	if (n == 0)
 	{
 		p = new Node(value);
 		p->next = head;
@@ -83,7 +83,7 @@ void LinkedList::insert(int n, int value)
 	}
 	else
 	{
-		for (int i = 0; i < n - 1; i++)//一般情况：遍历到插入位置前并插入
+		for (int i = 0; i < n - 1; i++)
 		{
 			p = p->next;
 		}
@@ -91,9 +91,9 @@ void LinkedList::insert(int n, int value)
 		p->next = new Node(value);
 		p->next->next = temp;
 	}
-	length++;//更新长度
+	length++;
 }
-void LinkedList::print()//输出
+void LinkedList::print()
 {
 	Node* p = head;
 	while (p != nullptr)
@@ -106,16 +106,16 @@ int main()
 {
 	int cnt_1;
 	int cnt_2;
-	scanf_s("%d",&cnt_1);//使用cin，cout可能会导致超时
+	scanf_s("%d",&cnt_1);
 	LinkedList* list = new LinkedList();
-	for (int i = 0; i < cnt_1; i++)//输入数据
+	for (int i = 0; i < cnt_1; i++)
 	{
 		int temp;
 		scanf_s("%d",&temp);
 		list->add(temp);
 	}
 	scanf_s("%d",&cnt_2);
-	for (int j = 0; j < cnt_2; j++)//按照题目要求处理
+	for (int j = 0; j < cnt_2; j++)
 	{
 		int mode;
 		int pos;
@@ -133,9 +133,9 @@ int main()
 			list->insert(pos, value);
 		}
 	}
-	list->print();//输出
+	list->print();
 }
-Node::Node(int v)//节点的默认构造器
+Node::Node(int v)
 {
 	value = v;
 	next = nullptr;

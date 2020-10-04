@@ -1,8 +1,8 @@
-#include<iostream>
-#include<string>
+#includeiostream
+#includestring
 using namespace std;
 void fail(string p, int f);
-int main()//完全按照教材adl编写，不想写注释了
+int main()
 {
     string s, p;
     cin  s;
