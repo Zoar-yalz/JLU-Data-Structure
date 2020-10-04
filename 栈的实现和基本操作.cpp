@@ -1,12 +1,12 @@
 #include <iostream>
-class Stack
+class Stack//栈的实现使用数组和栈顶指针
 {
 public:
-	int top;
-	int data[20000];
-	void push(int n);
-	int pop(void);
-	Stack();
+	int top;//栈顶指针
+	int data[20000];//数据栈
+	void push(int n);//压栈
+	int pop(void);//出栈
+	Stack();//默认构造器
 };
 int main()
 {
