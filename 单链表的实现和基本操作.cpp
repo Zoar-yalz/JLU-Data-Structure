@@ -1,21 +1,24 @@
 #include <stdio.h> //单链表的实现
 #define scanf_s scanf
-class Node	//单向节点类
+
+class LinkedList//单链表
 {
 public:
-	int value = NULL;	
-	Node* next = NULL;
-	Node(int v);
-};
-class LinkedList
-{
-public:
+	class Node	//单向节点类
+	{
+	public:
+		int value = NULL;
+		Node* next = NULL;
+		Node(int v);
+	};
 	LinkedList();//构造函数
+	~LinkedList();//析构函数
 	Node* add(int value);//在尾部添加节点
 	void del(int k);	//删除下标为k的节点
 	void insert(int n, int value);//在下标为n的结点后增加值为value的结点
 	void print();//按题目格式输出
 private:
+
 	Node* tail;//尾节点
 	Node* head;//头节点
 	int length;//存储链表长度的域
@@ -26,7 +29,19 @@ LinkedList::LinkedList()//默认构造器
 	head = NULL;
 	length = 0;
 }
-Node* LinkedList::add(int value)//添加
+LinkedList::~LinkedList()
+{
+	Node* p = head;
+	Node* del = head->next;
+	while (del->next != nullptr)
+	{
+		delete p;
+		p = del;
+		del = del->next;
+	}
+	delete del;
+}
+LinkedList::Node* LinkedList::add(int value)//添加
 {
 	if (tail == nullptr)//特殊情况：空链表时
 	{
@@ -106,24 +121,24 @@ int main()
 {
 	int cnt_1;
 	int cnt_2;
-	scanf_s("%d",&cnt_1);//使用cin，cout可能会导致超时
+	scanf_s("%d", &cnt_1);//使用cin，cout可能会导致超时
 	LinkedList* list = new LinkedList();
 	for (int i = 0; i < cnt_1; i++)//输入数据
 	{
 		int temp;
-		scanf_s("%d",&temp);
+		scanf_s("%d", &temp);
 		list->add(temp);
 	}
-	scanf_s("%d",&cnt_2);
+	scanf_s("%d", &cnt_2);
 	for (int j = 0; j < cnt_2; j++)//按照题目要求处理
 	{
 		int mode;
 		int pos;
 		int value;
-		scanf_s("%d",&mode);
+		scanf_s("%d", &mode);
 		if (mode == 1)
 		{
-			scanf_s("%d",&pos);
+			scanf_s("%d", &pos);
 			list->del(pos);
 		}
 		else
@@ -135,7 +150,7 @@ int main()
 	}
 	list->print();//输出
 }
-Node::Node(int v)//节点的默认构造器
+LinkedList::Node::Node(int v)//节点的默认构造器
 {
 	value = v;
 	next = nullptr;

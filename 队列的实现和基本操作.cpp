@@ -1,24 +1,19 @@
 #include <stdio.h>
 #include <iostream>
-class Node//嵌套节点类，队列的实现使用双向链表
-{
-public:
-	int value = NULL;
-	Node* next = NULL;
-	Node* prev = NULL;
-	Node(int v);
-};
-Node::Node(int v)//默认构造器
-{
-	value = v;
-	next = nullptr;
-	prev = nullptr;
-}
+
 class Deque//双向队列
 {
 public:
-	Deque();//构造与析构函数
-	~Deque();
+	class Node//嵌套节点类，队列的实现使用双向链表
+	{
+	public:
+		int value = NULL;
+		Node* next = NULL;
+		Node* prev = NULL;
+		Node(int v);
+	};
+	Deque();//构造函数
+	~Deque();//析构函数
 	void inQueue(int n);//入队
 	int outQueue(void);//出队
 	bool isEmpty(void);//判别是否为空
@@ -37,6 +32,15 @@ Deque::Deque()//默认构造器
 
 Deque::~Deque()
 {
+	Node* p = head;
+	Node* del = head->next;
+	while (del->next != nullptr)
+	{
+		delete p;
+		p = del;
+		del = del->next;
+	}
+	delete del;
 }
 void Deque::inQueue(int n)//入队
 {
@@ -91,6 +95,12 @@ int Deque::outQueue(void)//出队
 bool Deque::isEmpty(void)//判断是否为空
 {
 	return length == 0;
+}
+Deque::Node::Node(int v)//默认构造器
+{
+	value = v;
+	next = nullptr;
+	prev = nullptr;
 }
 int main()
 {
